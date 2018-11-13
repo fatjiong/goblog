@@ -7,3 +7,11 @@ type Category struct {
 	Pid  uint
 	Name string
 }
+
+var DB *gorm.DB
+var CategoryList []Category
+
+func GetCategoryList(pid int) []Category {
+	DB.Where("pid = ?", pid).Find(&Category{})
+	return CategoryList
+}

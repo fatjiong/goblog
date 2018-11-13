@@ -29,12 +29,19 @@ func main() {
 
 	//初始化数据库
 	db.AutoMigrate(&model.Category{}, &model.Article{}, &model.Adver{}, &model.Comment{}, &model.Feedback{}, &model.Sharelink{})
-
-	for i := 1; i < 10; i++ {
-		db.Create(&model.Category{
-
-		})
-	}
+	//
+	//for i := 1; i < 11; i++ {
+	//	db.Create(&model.Category{
+	//		Name: "测试分类" + strconv.Itoa(i),
+	//		Pid:  0,
+	//	})
+	//	for j := 1; j < 11; j++ {
+	//		db.Create(&model.Category{
+	//			Name: "测试分类" + strconv.Itoa(i) + "_" + strconv.Itoa(j),
+	//			Pid:  uint(i),
+	//		})
+	//	}
+	//}
 
 	////发布文章页面
 	//router.GET("/article/new/", controller.NewArticle)

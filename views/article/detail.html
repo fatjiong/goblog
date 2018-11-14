@@ -1,0 +1,222 @@
+{{ define "article/detail.html" }}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{.articleDetail.Title}}</title>
+    <meta name="keywords" content="女程序员" />
+    <meta name="description" content="女程序员职业生涯该如何发展？" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/base.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="/static/css/m.css" rel="stylesheet">
+    <script src="/skin/html/js/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/e/data/js/ajax.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/skin/html/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header>
+    <div id="mnav">
+        <div class="logo"><a href="/">杨青个人博客</a></div>
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <ul id="starlist">
+            <li><a href="/">网站首页</a></li>
+
+
+            <li class=""><a href="/about/">关于我</a></li>
+
+
+            <li class=""><a href="/blog/">博客日记</a></li>
+
+
+            <li class="selected"><a href="/share/">模板分享</a></li>
+
+
+            <li class=""><a href="/study/">学无止境</a></li>
+
+
+            <li class=""><a href="/e/tool/gbook/?bid=1">留言</a></li>
+
+        </ul>
+    </div>
+    <script>
+        window.onload = function ()
+        {
+            var oH2 = document.getElementById("mnavh");
+            var oUl = document.getElementById("starlist");
+            oH2.onclick = function ()
+            {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+            var obj=null;
+            var As=document.getElementById('starlist').getElementsByTagName('a');
+            obj = As[0];
+            for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+                obj=As[i];}
+            obj.id='selected'
+        }
+    </script>
+</header>
+<div class="line46"></div>
+<div class="blank"></div>
+<article>
+    <div class="leftbox">
+        <div class="infos">
+            <div class="newsview">
+                <h2 class="intitle">您现在的位置是：<a href="/">首页</a>&nbsp;> <a href="">{{.articleDetail.Title}}</a></h2>
+                <h3 class="news_title">{{.articleDetail.Title}}</h3>
+                <div class="news_author"><span class="au01"></span><span class="au02">{{.articleDetail.CreatedAt | formatAsDate}}</span><span class="au03">共<b>{{.articleDetail.Hits}}</b>人围观</span></div>
+                <div class="tags"><a href="/e/tags/?tagname=%C5%AE%B3%CC%D0%F2%D4%B1&tempid=9" target="_blank">{{.articleDetail.Author}}</a></div>
+                <div class="news_about"><strong>简介</strong>{{.articleDetail.Description}}</div>
+                <div class="news_infos">
+                    {{.articleDetail.Body}}
+                </div>
+            </div>
+            <div class="share">
+                <p class="diggit"><a href=""> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src=""></script></b>)</p>
+                <p class="dasbox"><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏本站</a></p>
+                <div class="hide_box" style="display: none;"></div>
+                <div class="shang_box" style="display: none;"> <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">关闭</a>
+                    <div class="shang_tit">
+                        <p>感谢您的支持，我会继续努力的!</p>
+                    </div>
+                    <div class="shang_payimg"> <img src="/skin/html/images/alipayimg.jpg" alt="扫码支持" title="扫一扫"> </div>
+                    <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                    <div class="shang_payselect">
+                        <div class="pay_item checked" data-id="alipay"> <span class="radiobox"></span> <span class="pay_logo"><img src="/skin/html/images/alipay.jpg" alt="支付宝"></span> </div>
+                        <div class="pay_item" data-id="weipay"> <span class="radiobox"></span> <span class="pay_logo"><img src="/skin/html/images/wechat.jpg" alt="微信"></span> </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $(".pay_item").click(function(){
+                                $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+                                var dataid=$(this).attr('data-id');
+                                $(".shang_payimg img").attr("src","/skin/html/images/"+dataid+"img.jpg");
+                                $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+                            });
+                        });
+                        function dashangToggle(){
+                            $(".hide_box").fadeToggle();
+                            $(".shang_box").fadeToggle();
+                        }
+                    </script>
+                </div>
+            </div>
+            <!--share end-->
+
+        </div>
+        <div class="nextinfo">
+            <p>上一篇：<a href='/share/1/5.html'>作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
+            <p>下一篇：<a href='/share/1/'>返回列表</a></a></p>
+        </div>
+        <div class="otherlink">
+            <h2>相关文章</h2>
+            <ul>
+                无相关信息      </ul>
+        </div>
+        <div class="news_pl">
+            <h2>文章评论</h2>
+            <ul>
+                <div class="gbko">
+
+                    <script src="/e/pl/more/?classid=4&id=6&num=10"></script>
+                    <script>
+                        function CheckPl(obj)
+                        {
+                            if(obj.saytext.value=="")
+                            {
+                                alert("您没什么话要说吗？");
+                                obj.saytext.focus();
+                                return false;
+                            }
+                            return true;
+                        }
+                    </script><form action="/e/pl/doaction.php" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+                    <div id="plpost">
+                        <p class="saying"><span><a href="/e/pl/?classid=4&amp;id=6">共有<script type="text/javascript" src=""></script>条评论</a></span>来说两句吧...</p>
+                        <p class="yname"><span>用户名:</span><input name="username" type="text" class="inputText" id="username" value="" size="16" /></p>
+                        <p class="yzm"><span>验证码:</span><input name="key" type="text" class="inputText" size="16" />
+                            <img src="/e/ShowKey/?v=pl" align="absmiddle" name="plKeyImg" id="plKeyImg" onclick="plKeyImg.src='/e/ShowKey/?v=pl&t='+Math.random()" title="看不清楚,点击刷新" /> </p>
+                        <input name="nomember"  type="hidden" id="nomember" value="1" checked="checked" />
+                        <textarea name="saytext" rows="6" id="saytext"></textarea><input name="imageField" type="submit" value="提交"/>
+                        <input name="id" type="hidden" id="id" value="6" />
+                        <input name="classid" type="hidden" id="classid" value="4" />
+                        <input name="enews" type="hidden" id="enews" value="AddPl" />
+                        <input name="repid" type="hidden" id="repid" value="0" />
+                        <input type="hidden" name="ecmsfrom" value="/share/1/6.html"></td>
+                    </div></form>
+
+
+
+
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="rightbox">
+        <div class="search">
+            <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="paihang">
+            <h2 class="ab_title"><a href="/">本栏推荐</a></h2>
+            <ul>
+
+
+                <li><b><a href="/share/1/6.html" target="_blank" >女程序员职业生涯该如何发展？</a></b>
+                    <p><i><a href="/share/1/6.html" title="女程序员职业生涯该如何发展？"><img src="http://www.yangqq.com/d/file/news/life/2014-07-10/43baa4c7c03ed66bae98696de5ebc64e.jpg" alt="女程序员职业生涯该如何发展？" /></a></i>四年的时间，学习专业课程，临近毕业恨不能找个简单轻松的工作远离编程，可是微薄的工资跟专...</p>
+                </li>
+
+
+                <li><b><a href="/share/1/5.html" target="_blank" >作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></b>
+                    <p><i><a href="/share/1/5.html" title="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?"><img src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg" alt="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?" /></a></i>曾经有站长找我求助，他说他不知道该怎么办，自己做出来的网站，不仅没有得到大家的认可，反...</p>
+                </li>
+
+
+                <li><b><a href="/share/1/3.html" target="_blank" >【匆匆那些年】总结个人博客经历的这四年</a></b>
+                    <p><i><a href="/share/1/3.html" title="【匆匆那些年】总结个人博客经历的这四年"><img src="http://www.yangqq.com/d/file/jstt/bj/2018-06-29/3f0b6da48a6fd4e626a021ff7bd0d74f.jpg" alt="【匆匆那些年】总结个人博客经历的这四年" /></a></i>博客从最初的域名购买，到上线已经有四年的时间了，这四年的时间，有笑过，有怨过，有悔过，...</p>
+                </li>
+            </ul>
+        </div>
+        <div class="paihang">
+            <h2 class="ab_title"><a href="/">点击排行</a></h2>
+            <ul>
+
+
+                <li><b><a href="/share/1/6.html" target="_blank" >女程序员职业生涯该如何发展？</a></b>
+                    <p><i><a href="/share/1/6.html" title="女程序员职业生涯该如何发展？"><img src="http://www.yangqq.com/d/file/news/life/2014-07-10/43baa4c7c03ed66bae98696de5ebc64e.jpg" alt="女程序员职业生涯该如何发展？" /></a></i>四年的时间，学习专业课程，临近毕业恨不能找个简单轻松的工作远离编程，可是微薄的工资跟专...</p>
+                </li>
+
+
+                <li><b><a href="/share/1/5.html" target="_blank" >作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></b>
+                    <p><i><a href="/share/1/5.html" title="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?"><img src="http://www.yangqq.com/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg" alt="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?" /></a></i>曾经有站长找我求助，他说他不知道该怎么办，自己做出来的网站，不仅没有得到大家的认可，反...</p>
+                </li>
+
+
+                <li><b><a href="/share/1/3.html" target="_blank" >【匆匆那些年】总结个人博客经历的这四年</a></b>
+                    <p><i><a href="/share/1/3.html" title="【匆匆那些年】总结个人博客经历的这四年"><img src="http://www.yangqq.com/d/file/jstt/bj/2018-06-29/3f0b6da48a6fd4e626a021ff7bd0d74f.jpg" alt="【匆匆那些年】总结个人博客经历的这四年" /></a></i>博客从最初的域名购买，到上线已经有四年的时间了，这四年的时间，有笑过，有怨过，有悔过，...</p>
+                </li>
+            </ul>
+        </div>
+        <div class="weixin">
+            <h2 class="ab_title">关注微信</h2>
+            <ul>
+                <img src="/skin/html/images/wx.jpg">
+            </ul>
+        </div>
+    </div>
+</article>
+<footer>
+    <p>Design by <a href="/">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+</footer></body>
+</html>
+{{end}}

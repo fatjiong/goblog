@@ -33,15 +33,15 @@ func main() {
 	})
 	//路由定义
 	router.Static("/static/", "./static")
-	router.LoadHTMLGlob("views/*")
+	router.LoadHTMLGlob("views/**/*")
 	router.GET("/", controllers.IndexGet)
+	//文章详情页
+	router.GET("/article/:id", controllers.ArticleDetail)
 
 	//发布文章页面
 	//router.GET("/article/new/", controller.NewArticle)
 	////文章提交接口
 	//router.POST("/article/submit/", controller.ArticleSubmit)
-	////文章详情页
-	//router.GET("/article/detail/", controller.ArticleDetail)
 	//
 	////文件上传接口
 	//router.POST("/upload/file/", controller.UploadFile)

@@ -32,7 +32,7 @@ func IndexGet(c *gin.Context) {
 		fmt.Println(err)
 	}
 
-	c.HTML(http.StatusOK, "index.html", gin.H{
+	c.HTML(http.StatusOK, "index/index.html", gin.H{
 		"categoryList":  categoryList,
 		"recommendList": recommendList,
 		"hitsList":      hitsList,

@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	"math/rand"
 	"strconv"
@@ -139,6 +140,18 @@ func GetArticleList(page int) ([]*Article, error) {
 	var err error
 	err = DB.Where("is_recommend = ?", 1).Offset((page - 1) * 10).Limit(10).Order("hits desc").Find(&articleList).Error
 	return articleList, err
+}
+
+//获取文章详情
+func GetArticleDetial(id string) (*Article, error) {
+	aid, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var article Article
+	var err2 error
+	err2 = DB.First(&article, aid).Error
+	return &article, err2
 }
 
 /**

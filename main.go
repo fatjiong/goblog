@@ -31,7 +31,7 @@ func main() {
 	//}
 
 	//生成点数据
-	//model.GenerateData()
+	model.GenerateData()
 
 	articleList, err := model.GetArticleRecommend()
 	if err != nil {

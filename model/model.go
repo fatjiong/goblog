@@ -2,8 +2,6 @@ package model
 
 import (
 	"github.com/jinzhu/gorm"
-	"math/rand"
-	"strconv"
 )
 
 var DB *gorm.DB
@@ -81,35 +79,35 @@ func InitDB() (*gorm.DB, error) {
 /**
 填充数据
 */
-func GenerateData() {
-	for i := 1; i < 11; i++ {
-		DB.Create(&Category{
-			Name: "测试分类" + strconv.Itoa(i),
-			Pid:  0,
-		})
-		for j := 1; j < 11; j++ {
-			DB.Create(&Category{
-				Name: "测试分类" + strconv.Itoa(i) + "_" + strconv.Itoa(j),
-				Pid:  uint(i),
-			})
-		}
-	}
-
-	for i := 1; i < 1001; i++ {
-		DB.Create(&Article{
-			CategoryId:  uint(rand.Intn(219) + 1),
-			Title:       "标题" + strconv.Itoa(rand.Intn(1024)),
-			Author:      "作者" + strconv.Itoa(rand.Intn(1024)),
-			Thumb:       strconv.Itoa(rand.Int()),
-			Description: "详情简介" + strconv.Itoa(rand.Intn(1024)),
-			Status:      uint(rand.Intn(2)),
-			IsRecommend: uint(rand.Intn(2)),
-			Hits:        uint(rand.Intn(9999)),
-			Body:        "内容" + strconv.Itoa(rand.Intn(1024)),
-		})
-	}
-	return
-}
+//func GenerateData() {
+//	for i := 1; i < 11; i++ {
+//		DB.Create(&Category{
+//			Name: "测试分类" + strconv.Itoa(i),
+//			Pid:  0,
+//		})
+//		for j := 1; j < 11; j++ {
+//			DB.Create(&Category{
+//				Name: "测试分类" + strconv.Itoa(i) + "_" + strconv.Itoa(j),
+//				Pid:  uint(i),
+//			})
+//		}
+//	}
+//
+//	for i := 1; i < 1001; i++ {
+//		DB.Create(&Article{
+//			CategoryId:  uint(rand.Intn(219) + 1),
+//			Title:       "标题" + strconv.Itoa(rand.Intn(1024)),
+//			Author:      "作者" + strconv.Itoa(rand.Intn(1024)),
+//			Thumb:       strconv.Itoa(rand.Int()),
+//			Description: "详情简介" + strconv.Itoa(rand.Intn(1024)),
+//			Status:      uint(rand.Intn(2)),
+//			IsRecommend: uint(rand.Intn(2)),
+//			Hits:        uint(rand.Intn(9999)),
+//			Body:        "内容" + strconv.Itoa(rand.Intn(1024)),
+//		})
+//	}
+//	return
+//}
 
 /**
 获取推荐文章

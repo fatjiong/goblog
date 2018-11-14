@@ -20,8 +20,22 @@ func IndexGet(c *gin.Context) {
 		fmt.Println(err)
 	}
 
+	//获取点击排行
+	hitsList, err := model.GetArticleHits(10)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//获取文章列表
+	articleList, err := model.GetArticleList(0)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"categoryList":  categoryList,
 		"recommendList": recommendList,
+		"hitsList":      hitsList,
+		"articleList":   articleList,
 	})
 }

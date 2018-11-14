@@ -2,16 +2,21 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatjiong/goblog/controllers"
 	"github.com/fatjiong/goblog/model"
+	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"html/template"
+	"time"
 )
 
+//格式化时间戳
+func formatAsDate(t time.Time) string {
+	year, month, day := t.Date()
+	return fmt.Sprintf("%d-%02d-%02d", year, month, day)
+}
+
 func main() {
-	//router := gin.Default()
-	////路由定义
-	//router.Static("/static/", "./static")
-	//router.LoadHTMLGlob("views/*")
-	//router.GET("/", controllers.IndexGet)
 
 	//初始化数据库
 	db, err := model.InitDB()
@@ -19,30 +24,19 @@ func main() {
 		fmt.Println(err)
 	}
 	defer db.Close()
-
-	//categoryList, err := model.GetCategoryList(0)
-	//
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//
-	//for _, category := range categoryList {
-	//	fmt.Println(category.Name)
-	//}
-
 	//生成点数据
 	//model.GenerateData()
 
-	articleList, err := model.GetArticleRecommend()
-	if err != nil {
-		fmt.Println(err)
-	}
+	router := gin.Default()
+	router.SetFuncMap(template.FuncMap{
+		"formatAsDate": formatAsDate,
+	})
+	//路由定义
+	router.Static("/static/", "./static")
+	router.LoadHTMLGlob("views/*")
+	router.GET("/", controllers.IndexGet)
 
-	for _, article := range articleList {
-		fmt.Println(article.Title + "_" + article.Author)
-	}
-
-	////发布文章页面
+	//发布文章页面
 	//router.GET("/article/new/", controller.NewArticle)
 	////文章提交接口
 	//router.POST("/article/submit/", controller.ArticleSubmit)
@@ -56,5 +50,5 @@ func main() {
 	//router.GET("/leave/new/", controller.LeaveNew)
 	////关于我页面
 	//router.GET("/about/me/", controller.AboutMe)
-	//router.Run(":8080")
+	router.Run(":8080")
 }

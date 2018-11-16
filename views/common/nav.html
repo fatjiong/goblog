@@ -1,0 +1,31 @@
+<header>
+    <div id="mnav">
+        <div class="logo"><a href="/">测试博客</a></div>
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <ul id="starlist">
+            <li><a href="/">首页</a></li>
+            <li class=""><a href="/about">关于</a></li>
+            <li class=""><a href="/feedback">留言</a></li>
+
+        </ul>
+    </div>
+    <script>
+        window.onload = function ()
+        {
+            var oH2 = document.getElementById("mnavh");
+            var oUl = document.getElementById("starlist");
+            oH2.onclick = function ()
+            {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+            var obj=null;
+            var As=document.getElementById('starlist').getElementsByTagName('a');
+            obj = As[0];
+            for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+                obj=As[i];}
+            obj.id='selected'
+        }
+    </script>
+</header>

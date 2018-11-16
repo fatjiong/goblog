@@ -14,14 +14,15 @@ func IndexGet(c *gin.Context) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	//推荐文章列表
-	recommendList, err := model.GetArticleRecommend()
+	recommendList, err := model.GetArticleRecommend(0)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	//获取点击排行
-	hitsList, err := model.GetArticleHits(10)
+	hitsList, err := model.GetArticleHits(10, 0)
 	if err != nil {
 		fmt.Println(err)
 	}

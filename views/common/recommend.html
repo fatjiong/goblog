@@ -1,0 +1,10 @@
+<div class="paihang">
+    <h2 class="ab_title"><a href="/">本栏推荐</a></h2>
+    <ul>
+    {{range $key,$value:=.recommendList}}
+        <li><b><a href="/article/{{$value.ID}}">{{$value.Title}}</a></b>
+            <p><i><a href="/article/{{$value.ID}}" title="{{$value.Title}}"><img src="http://www.yangqq.com/d/file/news/life/2014-07-10/43baa4c7c03ed66bae98696de5ebc64e.jpg" alt="{{$value.Title}}" /></a></i>{{$value.Description}}...</p>
+        </li>
+    {{end}}
+    </ul>
+</div>

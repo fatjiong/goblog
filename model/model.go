@@ -115,20 +115,30 @@ func GenerateData() {
 /**
 获取推荐文章
 */
-func GetArticleRecommend() ([]*Article, error) {
+func GetArticleRecommend(categoryId uint) ([]*Article, error) {
 	var articleList []*Article
 	var err error
-	err = DB.Where("is_recommend = ?", 1).Offset(0).Limit(6).Find(&articleList).Error
+	if categoryId == 0 {
+		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Offset(0).Limit(6).Find(&articleList).Error
+	} else {
+		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Where("category_id = ?", categoryId).Offset(0).Limit(6).Find(&articleList).Error
+	}
+
 	return articleList, err
 }
 
 /**
 获取点击前10的文章
 */
-func GetArticleHits(limit int) ([]*Article, error) {
+func GetArticleHits(limit int, categoryId uint) ([]*Article, error) {
 	var articleList []*Article
 	var err error
-	err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+	if categoryId == 0 {
+		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+	} else {
+		err = DB.Where("is_recommend = ?", 1).Where("category_id = ?", categoryId).Where("status=?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+	}
+
 	return articleList, err
 }
 

@@ -1,0 +1,33 @@
+<div class="search">
+    <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+        <input name="keyboard" id="keyboard" class="input_text" value="" placeholder="请输入关键字" type="text">
+        <input name="show" value="title" type="hidden">
+        <input name="tempid" value="1" type="hidden">
+        <input name="tbname" value="news" type="hidden">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+    </form>
+</div>
+<div class="paihang">
+    <h2 class="ab_title"><a href="/">点击排行</a></h2>
+    <ul>
+    {{range $key,$value:=.hitsList}}
+        <li><b><a href="/article/{{$value.ID}}" target="_blank">{{$value.Title}}...</a></b>
+            <p><i><img src="/static/images/b01.png"></i>{{$value.Description}}...</p>
+        </li>
+    {{end}}
+    </ul>
+</div>
+<div class="links">
+    <h2 class="ab_title">友情链接</h2>
+    <ul>
+        <li><a href="/">测试博客</a></li>
+        <li><a href="/">个人博客模板</a></li>
+        <li><a href="/">优秀个人博客</a></li>
+    </ul>
+</div>
+<div class="weixin">
+    <h2 class="ab_title">微信关注</h2>
+    <ul>
+        <img src="/static/images/wx.jpg">
+    </ul>
+</div>

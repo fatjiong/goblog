@@ -39,7 +39,7 @@ func main() {
 	//文章详情页
 	router.GET("/article/:id", controllers.ArticleDetail)
 	//关键字查询
-	router.GET("/search/:keywords", controllers.SearchGet)
+	router.POST("/search", controllers.SearchPost)
 	//发布文章页面
 	//router.GET("/article/new/", controller.NewArticle)
 	////文章提交接口

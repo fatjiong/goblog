@@ -119,9 +119,9 @@ func GetArticleRecommend(categoryId uint) ([]*Article, error) {
 	var articleList []*Article
 	var err error
 	if categoryId == 0 {
-		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Offset(0).Limit(6).Find(&articleList).Error
+		err = DB.Where("is_recommend = ? and status = ?", 1, 1).Offset(0).Limit(6).Find(&articleList).Error
 	} else {
-		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Where("category_id = ?", categoryId).Offset(0).Limit(6).Find(&articleList).Error
+		err = DB.Where("is_recommend = ? and status = ?", 1, 1).Where("category_id = ?", categoryId).Offset(0).Limit(6).Find(&articleList).Error
 	}
 
 	return articleList, err
@@ -134,9 +134,9 @@ func GetArticleHits(limit int, categoryId uint) ([]*Article, error) {
 	var articleList []*Article
 	var err error
 	if categoryId == 0 {
-		err = DB.Where("is_recommend = ?", 1).Where("status=?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+		err = DB.Where("status = ?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
 	} else {
-		err = DB.Where("is_recommend = ?", 1).Where("category_id = ?", categoryId).Where("status=?", 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+		err = DB.Where("category_id = ? and status = ?", categoryId, 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
 	}
 
 	return articleList, err
@@ -148,7 +148,32 @@ func GetArticleHits(limit int, categoryId uint) ([]*Article, error) {
 func GetArticleList(page int) ([]*Article, error) {
 	var articleList []*Article
 	var err error
-	err = DB.Where("is_recommend = ?", 1).Offset((page - 1) * 10).Limit(10).Order("hits desc").Find(&articleList).Error
+	err = DB.Where("status = ?", 1).Offset((page - 1) * 10).Limit(10).Order("hits desc").Find(&articleList).Error
+	return articleList, err
+}
+
+/**
+关键字获取文章列表
+*/
+func GetArticleListByKeywords(keywords string, page int) ([]*Article, error) {
+	var articleList []*Article
+	var err error
+	err = DB.Where("title like ? and status = ?", "%"+keywords+"%", 1).Offset((page - 1) * 10).Limit(10).Order("hits desc").Find(&articleList).Error
+	return articleList, err
+}
+
+/**
+根据分类获取文章列表
+*/
+func GetArticleListByCategoryId(limit int, categoryId uint) ([]*Article, error) {
+	var articleList []*Article
+	var err error
+	if categoryId == 0 {
+		err = DB.Where("is_recommend = ? and status = ?", 1, 1).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+	} else {
+		err = DB.Where("is_recommend = ? and status = ? and category_id = ?", 1, 1, categoryId).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
+	}
+
 	return articleList, err
 }
 

@@ -62,7 +62,14 @@
         <div class="otherlink">
             <h2>相关文章</h2>
             <ul>
-                无相关信息      </ul>
+            {{if not .aboutList}}
+                暂无数据
+            {{else}}
+                {{range $key,$value:=.aboutList}}
+                    <li><a href="/article/{{$value.ID}}" title="{{$value.Title}}">{{$value.Title}}</a></li>
+                {{end}}
+            {{end}}
+            </ul>
         </div>
         <div class="news_pl">
             <h2>文章评论</h2>
@@ -106,8 +113,7 @@
         {{template "wechat.html"}}
     </div>
 </article>
-<footer>
-    <p>Design by <a href="/">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
-</footer></body>
+{{template "footer.html"}}
+</body>
 </html>
 {{end}}

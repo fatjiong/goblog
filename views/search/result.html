@@ -1,4 +1,4 @@
-{{ define "index/index.html" }}
+{{ define "search/result.html" }}
 <!doctype html>
 <html>
 <head>
@@ -8,26 +8,7 @@
 {{template "nav.html"}}
 <div class="line46"></div>
 <article>
-    <div class="pics">
-        <ul>
-            <li><i><a href="/" target="_blank"><img src="/static/images/t01.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
-            <li><i><a href="/"><img src="/static/images/t04.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
-            <li><i><a href="/"><img src="/static/images/t03.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
-        </ul>
-    </div>
-    <div class="blank"></div>
     <div class="leftbox">
-        <div class="tuijian">
-            <h2 class="hometitle"><span><a href="/">模板分享</a><a href="/">学无止境</a><a href="/">慢生活</a><a href="/">热门标签</a></span>特别推荐</h2>
-            <ul>
-            {{range $key,$value:=.recommendList}}
-                <li>
-                    <div class="tpic"><img src="/static/images/b01.png"></div>
-                    <b>{{$value.Title}}</b><span>{{$value.Description}}...</span><a href="/article/{{$value.ID}}" class="readmore">阅读原文</a>
-                </li>
-            {{end}}
-            </ul>
-        </div>
         <div class="newblogs">
             <h2 class="hometitle">最新文章</h2>
             <ul id="list" style="display:none;">
@@ -47,21 +28,10 @@
         </div>
     </div>
     <div class="rightbox">
-        <div class="aboutme">
-            <h2 class="ab_title">关于我</h2>
-            <div class="avatar"><img src="/static/images/avatar.jpg" /></div>
-            <div class="ab_con">
-                <p>网名：Jonni | Zhang</p>
-                <p>职业：代码狗、程序猿、攻城狮 </p>
-                <p>籍贯：四川省—成都市</p>
-                <p>邮箱：757970599@qq.com</p>
-            </div>
-        </div>
         <div class="blank"></div>
         {{template "search.html"}}
         {{template "recommend.html" .}}
         {{template "rank.html" .}}
-        {{template "sharelink.html"}}
         {{template "wechat.html"}}
     </div>
 </article>

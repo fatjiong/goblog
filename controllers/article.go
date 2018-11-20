@@ -28,6 +28,13 @@ func ArticleDetail(c *gin.Context) {
 		fmt.Println(err)
 	}
 
+	//获取相关文章
+	aboutList, err := model.GetArticleListByCategoryId(6, articleDetail.CategoryId)
+	if err != nil {
+		fmt.Println(err)
+		aboutList = nil
+	}
+
 	/**
 	获取上一篇文章
 	*/
@@ -47,6 +54,7 @@ func ArticleDetail(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "article/detail.html", gin.H{
+		"aboutList":     aboutList,
 		"articleDetail": articleDetail,
 		"recommendList": recommendList,
 		"hitsList":      hitsList,

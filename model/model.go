@@ -165,6 +165,24 @@ func GetArticleDetial(id string) (*Article, error) {
 }
 
 /**
+获取其他文章
+*/
+func GetArticlePrev(id string, source string) (*Article, error) {
+	aid, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var article Article
+	var err2 error
+	if source == "next" {
+		err2 = DB.Where("id > ? and status = ?", aid, 1).First(&article).Error
+	} else {
+		err2 = DB.Where("id < ? and status = ?", aid, 1).Last(&article).Error
+	}
+	return &article, err2
+}
+
+/**
 根据父类获取那啥
 */
 func GetCategoryList(pid uint) ([]*Category, error) {

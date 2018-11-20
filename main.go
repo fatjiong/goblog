@@ -34,10 +34,12 @@ func main() {
 	//路由定义
 	router.Static("/static/", "./static")
 	router.LoadHTMLGlob("views/**/*")
+	//项目首页
 	router.GET("/", controllers.IndexGet)
 	//文章详情页
 	router.GET("/article/:id", controllers.ArticleDetail)
-
+	//关键字查询
+	router.GET("/search/:keywords", controllers.SearchGet)
 	//发布文章页面
 	//router.GET("/article/new/", controller.NewArticle)
 	////文章提交接口

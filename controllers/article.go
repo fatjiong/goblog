@@ -28,9 +28,29 @@ func ArticleDetail(c *gin.Context) {
 		fmt.Println(err)
 	}
 
+	/**
+	获取上一篇文章
+	*/
+	prevArticle, err := model.GetArticlePrev(id, "prev")
+	if err != nil {
+		fmt.Println(err)
+		prevArticle = nil
+	}
+
+	/**
+	获取下一篇文章
+	*/
+	nextArticle, err := model.GetArticlePrev(id, "next")
+	if err != nil {
+		fmt.Println(err)
+		nextArticle = nil
+	}
+
 	c.HTML(http.StatusOK, "article/detail.html", gin.H{
 		"articleDetail": articleDetail,
 		"recommendList": recommendList,
 		"hitsList":      hitsList,
+		"prevArticle":   prevArticle,
+		"nextArticle":   nextArticle,
 	})
 }

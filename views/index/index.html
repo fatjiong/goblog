@@ -22,7 +22,7 @@
             <ul>
             {{range $key,$value:=.recommendList}}
                 <li>
-                    <a href="/article/{{$value.ID}}"><div class="tpic"><img src="/static/images/b01.png"></div></a>
+                    <a href="/article/{{$value.ID}}"><div class="tpic"><img src="{{$value.Thumb}}"></div></a>
                     <b>{{$value.Title}}</b><span>{{$value.Description}}...</span><a href="/article/{{$value.ID}}" class="readmore">阅读原文</a>
                 </li>
             {{end}}
@@ -34,7 +34,7 @@
             {{range $key,$value:=.articleList}}
                 <li>
                     <h3 class="blogtitle"><a href="/article/{{$value.ID}}" target="_blank" >{{$value.Title}}</a></h3>
-                    <div class="bloginfo"><span class="blogpic"><a href="/article/{{$value.ID}}" title=""><img src="/static/images/t01.jpg"  /></a></span>
+                    <div class="bloginfo"><span class="blogpic"><a href="/article/{{$value.ID}}" title=""><img src="{{$value.Thumb}}"  /></a></span>
                         <p>{{$value.Description}}...</p>
                     </div>
                     <div class="autor"><span class="lm f_l"><a href="/">{{$value.Author}}</a></span><span class="dtime f_l">{{$value.CreatedAt | formatAsDate}}</span><span class="viewnum f_l">浏览（<a href="javascript:;"  onclick="addArticleCounter({{$value.ID}},1)">{{$value.Hits}}</a>）</span><span class="pingl f_l">喜欢（<a href="javascript:;" onclick="addArticleCounter({{$value.ID}},2)">{{$value.Up}}</a>）</span><span class="f_r"><a href="/article/{{$value.ID}}" class="more">阅读原文</a></span></div>

@@ -12,7 +12,7 @@
     <ul>
     {{range $key,$value:=.hitsList}}
         <li><b><a href="/article/{{$value.ID}}" target="_blank">{{$value.Title}}...</a></b>
-            <p><i><img src="/static/images/b01.png"></i>{{$value.Description}}...</p>
+            <p><i><img src="{{$value.Thumb}}"></i>{{$value.Description}}...</p>
         </li>
     {{end}}
     </ul>

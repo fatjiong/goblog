@@ -22,7 +22,7 @@
             <ul>
             {{range $key,$value:=.recommendList}}
                 <li>
-                    <div class="tpic"><img src="/static/images/b01.png"></div>
+                    <a href="/article/{{$value.ID}}"><div class="tpic"><img src="/static/images/b01.png"></div></a>
                     <b>{{$value.Title}}</b><span>{{$value.Description}}...</span><a href="/article/{{$value.ID}}" class="readmore">阅读原文</a>
                 </li>
             {{end}}
@@ -35,9 +35,9 @@
                 <li>
                     <h3 class="blogtitle"><a href="/article/{{$value.ID}}" target="_blank" >{{$value.Title}}</a></h3>
                     <div class="bloginfo"><span class="blogpic"><a href="/article/{{$value.ID}}" title=""><img src="/static/images/t01.jpg"  /></a></span>
-                        <p>网页设计好不好看,颜色是毋庸置疑要排首位的,所以关于颜色的搭配技巧以及原则,对于每一个要学习web前端设计的新手来说,这都是一个重要的学习过程.在本教程中我们将与你分享...</p>
+                        <p>{{$value.Description}}...</p>
                     </div>
-                    <div class="autor"><span class="lm f_l"><a href="/">{{$value.Author}}}</a></span><span class="dtime f_l">{{$value.CreatedAt | formatAsDate}}</span><span class="viewnum f_l">浏览（<a href="/">{{$value.Hits}}</a>）</span><span class="pingl f_l">喜欢（<a href="/">30</a>）</span><span class="f_r"><a href="/article/{{$value.ID}}" class="more">阅读原文</a></span></div>
+                    <div class="autor"><span class="lm f_l"><a href="/">{{$value.Author}}</a></span><span class="dtime f_l">{{$value.CreatedAt | formatAsDate}}</span><span class="viewnum f_l">浏览（<a href="javascript:;"  onclick="addArticleCounter({{$value.ID}},1)">{{$value.Hits}}</a>）</span><span class="pingl f_l">喜欢（<a href="javascript:;" onclick="addArticleCounter({{$value.ID}},2)">{{$value.Up}}</a>）</span><span class="f_r"><a href="/article/{{$value.ID}}" class="more">阅读原文</a></span></div>
                 </li>
             {{end}}}
             </ul>

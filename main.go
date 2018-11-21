@@ -38,6 +38,9 @@ func main() {
 	router.GET("/", controllers.IndexGet)
 	//文章详情页
 	router.GET("/article/:id", controllers.ArticleDetail)
+	// 更改文章的计数
+	router.POST("/article/counter", controllers.ArticleCounter)
+
 	//关键字查询
 	router.POST("/search", controllers.SearchPost)
 	//发布文章页面

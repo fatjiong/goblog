@@ -28,12 +28,15 @@ type Article struct {
 	CategoryId  uint
 	Title       string
 	Thumb       string
+	Tags        string
 	Author      string
 	Description string
 	Status      uint
 	IsRecommend uint
 	Hits        uint
 	Body        string
+	Up          uint
+	Down        uint
 }
 
 type Comment struct {
@@ -173,7 +176,16 @@ func GetArticleListByCategoryId(limit int, categoryId uint) ([]*Article, error) 
 	} else {
 		err = DB.Where("is_recommend = ? and status = ? and category_id = ?", 1, 1, categoryId).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
 	}
+	return articleList, err
+}
 
+/**
+获取文章列表
+*/
+func GetArticlListAbout(limit int, article *Article) ([]*Article, error) {
+	var articleList []*Article
+	var err error
+	err = DB.Where("is_recommend = ? and status = ? and category_id = ? and id <> ?", 1, 1, article.CategoryId, article.ID).Offset(0).Limit(limit).Order("hits desc").Find(&articleList).Error
 	return articleList, err
 }
 
@@ -215,4 +227,35 @@ func GetCategoryList(pid uint) ([]*Category, error) {
 	var err error
 	err = DB.Where("pid = ?", pid).Find(&categoryList).Error
 	return categoryList, err
+}
+
+/**
+文章計數器
+*/
+func CounterArticle(articleId string, source uint) (bool, error) {
+	article, err := GetArticleDetial(articleId)
+	if err != nil {
+		fmt.Println(err)
+		return false, err
+	}
+	switch source {
+	case 2:
+		article.Up += 1
+		break
+	case 3:
+		article.Down += 1
+		break
+	default:
+		article.Hits += 1
+		break
+	}
+
+	err2 := DB.Save(article).Error
+
+	if err2 != nil {
+		fmt.Println(err2)
+		return false, err2
+	}
+
+	return true, err2
 }

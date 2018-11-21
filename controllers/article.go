@@ -5,6 +5,8 @@ import (
 	"github.com/fatjiong/goblog/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 //文章详情
@@ -29,7 +31,7 @@ func ArticleDetail(c *gin.Context) {
 	}
 
 	//获取相关文章
-	aboutList, err := model.GetArticleListByCategoryId(6, articleDetail.CategoryId)
+	aboutList, err := model.GetArticlListAbout(6, articleDetail)
 	if err != nil {
 		fmt.Println(err)
 		aboutList = nil
@@ -53,6 +55,15 @@ func ArticleDetail(c *gin.Context) {
 		nextArticle = nil
 	}
 
+	//更新文章点击量
+	model.CounterArticle(id, 1)
+
+	//文章标签
+	var tags []string
+	if articleDetail.Tags != "" {
+		tags = strings.Split(articleDetail.Tags, ",")
+	}
+
 	c.HTML(http.StatusOK, "article/detail.html", gin.H{
 		"aboutList":     aboutList,
 		"articleDetail": articleDetail,
@@ -60,5 +71,31 @@ func ArticleDetail(c *gin.Context) {
 		"hitsList":      hitsList,
 		"prevArticle":   prevArticle,
 		"nextArticle":   nextArticle,
+		"tags":          tags,
 	})
+}
+
+/**
+修改文章的计数
+*/
+func ArticleCounter(c *gin.Context) {
+	id := c.PostForm("id")
+	source, err := strconv.Atoi(c.PostForm("source"))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	res, err := model.CounterArticle(id, uint(source))
+
+	if res {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    200,
+			"message": "操作成功!",
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"code":    500,
+			"message": "操作失败!",
+		})
+	}
 }

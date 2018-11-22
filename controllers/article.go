@@ -13,34 +13,17 @@ import (
 func ArticleDetail(c *gin.Context) {
 	id := c.Param("id")
 
-	articleDetail, err := model.GetArticleDetial(id)
-	if err != nil {
-		fmt.Println(err)
-	}
-
+	//获取文章详情
+	articleDetail, _ := model.GetArticleDetial(id)
 	//推荐文章列表
-	recommendList, err := model.GetArticleRecommend(articleDetail.CategoryId)
-	if err != nil {
-		fmt.Println(err)
-	}
-
+	recommendList, _ := model.GetArticleRecommend(articleDetail.CategoryId)
 	//获取点击排行
-	hitsList, err := model.GetArticleHits(10, articleDetail.CategoryId)
-	if err != nil {
-		fmt.Println(err)
-	}
-
+	hitsList, _ := model.GetArticleHits(10, articleDetail.CategoryId)
 	//获取相关文章
-	aboutList, err := model.GetArticlListAbout(6, articleDetail)
-	if err != nil {
-		fmt.Println(err)
-		aboutList = nil
-	}
-
-	/**
-	获取上一篇文章
-	*/
+	aboutList, _ := model.GetArticlListAbout(6, articleDetail)
+	//获取上一篇文章
 	prevArticle, err := model.GetArticlePrev(id, "prev")
+
 	if err != nil {
 		fmt.Println(err)
 		prevArticle = nil
@@ -64,6 +47,9 @@ func ArticleDetail(c *gin.Context) {
 		tags = strings.Split(articleDetail.Tags, ",")
 	}
 
+	//分类列表
+	categoryList, _ := model.GetCategoryList(0)
+
 	c.HTML(http.StatusOK, "article/detail.html", gin.H{
 		"aboutList":     aboutList,
 		"articleDetail": articleDetail,
@@ -72,6 +58,7 @@ func ArticleDetail(c *gin.Context) {
 		"prevArticle":   prevArticle,
 		"nextArticle":   nextArticle,
 		"tags":          tags,
+		"categoryList":  categoryList,
 	})
 }
 

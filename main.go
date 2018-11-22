@@ -17,7 +17,6 @@ func formatAsDate(t time.Time) string {
 }
 
 func main() {
-
 	//初始化数据库
 	db, err := model.InitDB()
 	if err != nil {
@@ -36,24 +35,17 @@ func main() {
 	router.LoadHTMLGlob("views/**/*")
 	//项目首页
 	router.GET("/", controllers.IndexGet)
+	//分类首页
+	router.GET("/category/:cid", controllers.CategoryGet)
 	//文章详情页
 	router.GET("/article/:id", controllers.ArticleDetail)
 	// 更改文章的计数
 	router.POST("/article/counter", controllers.ArticleCounter)
-
 	//关键字查询
 	router.POST("/search", controllers.SearchPost)
-	//发布文章页面
-	//router.GET("/article/new/", controller.NewArticle)
-	////文章提交接口
-	//router.POST("/article/submit/", controller.ArticleSubmit)
-	//
-	////文件上传接口
-	//router.POST("/upload/file/", controller.UploadFile)
-	//
+	//关于我页面
+	router.GET("/about", controllers.AboutGet)
 	////留言页面
-	//router.GET("/leave/new/", controller.LeaveNew)
-	////关于我页面
-	//router.GET("/about/me/", controller.AboutMe)
+	//router.GET("/leave/new/", controller.Feedback)
 	router.Run(":8080")
 }

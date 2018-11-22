@@ -1,0 +1,46 @@
+{{ define "about/about.html" }}
+<!doctype html>
+<html>
+<head>
+{{template "header.html"}}
+</head>
+<body>
+{{template "nav.html" .}}
+
+<div class="line46"></div>
+<div class="blank"></div>
+<article>
+    <div class="leftbox">
+        <div class="infos">
+            <div class="newsview">
+                <h2 class="intitle">您现在的位置是：<a href="/">首页</a>&nbsp;> <a href="/about">关于我</a></h2>
+                <h3 class="news_title">{{.articleDetail.Title}}</h3>
+                <div class="news_infos">
+                {{.articleDetail.Body}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rightbox">
+        <div class="aboutme">
+            <h2 class="ab_title">关于我</h2>
+            <div class="avatar"><img src="/static/images/avatar.jpg" /></div>
+            <div class="ab_con">
+                <p>网名：Jonni | Zhang</p>
+                <p>职业：代码狗、程序猿、攻城狮 </p>
+                <p>籍贯：四川省—成都市</p>
+                <p>邮箱：757970599@qq.com</p>
+            </div>
+        </div>
+        <div class="blank"></div>
+    {{template "search.html"}}
+    {{template "recommend.html" .}}
+    {{template "rank.html" .}}
+    {{template "sharelink.html" .}}
+    {{template "wechat.html"}}
+    </div>
+</article>
+{{template "footer.html"}}
+</body>
+</html>
+{{ end }}

@@ -5,7 +5,7 @@
 {{template "header.html"}}
 </head>
 <body>
-{{template "nav.html"}}
+{{template "nav.html" .}}
 
 <div class="line46"></div>
 <div class="blank"></div>
@@ -37,7 +37,6 @@
                     <a href=""> 踩！ </a>(<b id="diggnum">{{.articleDetail.Down}}</b>)
                 </p>
             </div>
-
         </div>
         <div class="nextinfo">
             <p>上一篇：{{if not .prevArticle }}<a href="javascript:;">没有啦！</a>{{else}}<a href='/article/{{.prevArticle.ID}}'>{{.prevArticle.Title}}</a>{{end}}</p>

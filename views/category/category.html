@@ -1,4 +1,4 @@
-{{ define "search/result.html" }}
+{{ define "category/category.html" }}
 <!doctype html>
 <html>
 <head>
@@ -29,10 +29,10 @@
     </div>
     <div class="rightbox">
         <div class="blank"></div>
-        {{template "search.html"}}
-        {{template "recommend.html" .}}
-        {{template "rank.html" .}}
-        {{template "wechat.html"}}
+    {{template "search.html"}}
+    {{template "recommend.html" .}}
+    {{template "rank.html" .}}
+    {{template "wechat.html"}}
     </div>
 </article>
 {{template "footer.html"}}

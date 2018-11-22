@@ -13,6 +13,7 @@ type Category struct {
 	gorm.Model
 	Pid  uint
 	Name string
+	Sort uint
 }
 
 type Adver struct {
@@ -166,6 +167,16 @@ func GetArticleListByKeywords(keywords string, page int) ([]*Article, error) {
 }
 
 /**
+根据标签获取文章列表
+*/
+func GetArticleListByTag(keywords string, page int) ([]*Article, error) {
+	var articleList []*Article
+	var err error
+	err = DB.Where("title like ? and status = ?", "%"+keywords+"%", 1).Offset((page - 1) * 10).Limit(10).Order("hits desc").Find(&articleList).Error
+	return articleList, err
+}
+
+/**
 根据分类获取文章列表
 */
 func GetArticleListByCategoryId(limit int, categoryId uint) ([]*Article, error) {
@@ -225,7 +236,7 @@ func GetArticlePrev(id string, source string) (*Article, error) {
 func GetCategoryList(pid uint) ([]*Category, error) {
 	var categoryList []*Category
 	var err error
-	err = DB.Where("pid = ?", pid).Find(&categoryList).Error
+	err = DB.Where("pid = ?", pid).Order("sort,id").Find(&categoryList).Error
 	return categoryList, err
 }
 
@@ -258,4 +269,14 @@ func CounterArticle(articleId string, source uint) (bool, error) {
 	}
 
 	return true, err2
+}
+
+/**
+获取友情链接列表
+*/
+func GetSharelinkList(limit int) ([]*Sharelink, error) {
+	var sharelink []*Sharelink
+	var err error
+	err = DB.Where("is_check = ?", 1).Offset(0).Limit(limit).Order("id asc").Find(&sharelink).Error
+	return sharelink, err
 }

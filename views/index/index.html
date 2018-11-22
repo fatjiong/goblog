@@ -5,12 +5,12 @@
 {{template "header.html"}}
 </head>
 <body>
-{{template "nav.html"}}
+{{template "nav.html" .}}
 <div class="line46"></div>
 <article>
     <div class="pics">
         <ul>
-            <li><i><a href="/" target="_blank"><img src="/static/images/t01.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
+            <li><i><a href="/"><img src="/static/images/t01.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
             <li><i><a href="/"><img src="/static/images/t04.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
             <li><i><a href="/"><img src="/static/images/t03.jpg"></a></i><span>这组图片中的静物等非常的日系</span></li>
         </ul>
@@ -33,7 +33,7 @@
             <ul id="list" style="display:none;">
             {{range $key,$value:=.articleList}}
                 <li>
-                    <h3 class="blogtitle"><a href="/article/{{$value.ID}}" target="_blank" >{{$value.Title}}</a></h3>
+                    <h3 class="blogtitle"><a href="/article/{{$value.ID}}">{{$value.Title}}</a></h3>
                     <div class="bloginfo"><span class="blogpic"><a href="/article/{{$value.ID}}" title=""><img src="{{$value.Thumb}}"  /></a></span>
                         <p>{{$value.Description}}...</p>
                     </div>
@@ -61,7 +61,7 @@
         {{template "search.html"}}
         {{template "recommend.html" .}}
         {{template "rank.html" .}}
-        {{template "sharelink.html"}}
+        {{template "sharelink.html" .}}
         {{template "wechat.html"}}
     </div>
 </article>

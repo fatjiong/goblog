@@ -5,6 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"math/rand"
 	"strconv"
+	"time"
 )
 
 var DB *gorm.DB
@@ -66,6 +67,19 @@ type Sharelink struct {
 	LinkUrl string
 }
 
+type User struct {
+	gorm.Model
+	Account   string
+	Password  string
+	Salt      string
+	Gender    uint
+	TrueName  string
+	NickName  string
+	Status    uint
+	JwtToken  string
+	LoginTime time.Time
+}
+
 /**
 初始化数据库
 */
@@ -77,7 +91,9 @@ func InitDB() (*gorm.DB, error) {
 		gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 			return "gb_" + defaultTableName
 		}
-		db.AutoMigrate(&Category{}, &Article{}, &Adver{}, &Comment{}, &Feedback{}, &Sharelink{})
+		//全局禁止表明负数
+		//db.SingularTable(true)
+		db.AutoMigrate(&Category{}, &Article{}, &Adver{}, &Comment{}, &Feedback{}, &Sharelink{}, &User{})
 		return db, nil
 	}
 	return nil, err
